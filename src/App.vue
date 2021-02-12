@@ -1,22 +1,19 @@
 <template>
   <div id="app">
-
+    <router-view :key="$route.name" />
   </div>
 </template>
 
 <script>
-
-
 export default {
   name: 'App',
-  components: {
-
-  }
-}
+  components: {},
+};
 </script>
 
 <style lang="scss">
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;

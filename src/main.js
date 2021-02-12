@@ -1,8 +1,25 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+import HttpService from '@/services/HttpService';
+import router from '@/router/router';
+import store from '@/store';
 
-Vue.config.productionTip = false
+import App from '@/App';
+
+Vue.prototype.$http = axios;
+Vue.use(VueAxios, axios);
+
+const persistedVuex = localStorage.getItem('vuex');
+const token = JSON.parse(persistedVuex)?.auth?.accessToken;
+if (token) {
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+}
+
+HttpService.setupInterceptors();
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  router,
+  store,
+  render: (h) => h(App),
+}).$mount('#app');
