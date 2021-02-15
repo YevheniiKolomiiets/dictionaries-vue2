@@ -1,18 +1,12 @@
 <template>
-  <main>
-    <form @submit.prevent="handleLogin">
-      <input v-model="username" placeholder="username" type="text" />
-      <input v-model="password" placeholder="password" type="password" />
-      <button type="submit">login</button>
-    </form>
-  </main>
+  <main>homepage</main>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: 'homepage',
+  name: 'Homepage',
   data: () => ({
     username: '',
     password: '',
@@ -26,8 +20,8 @@ export default {
     ...mapActions({
       login: 'auth/login',
     }),
-    async handleLogin() {
-      await this.login({
+    handleLogin() {
+      this.login({
         login: this.username,
         password: this.password,
       });

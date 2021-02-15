@@ -3,7 +3,7 @@ import store from '@/store';
 const routes = [
   {
     path: '/',
-    name: 'homepage',
+    name: 'Homepage',
     component: () => import('../views/Homepage'),
     beforeEnter(to, from, next) {
       if (store.getters['auth/isLoggedIn']) {
@@ -15,7 +15,7 @@ const routes = [
   },
   {
     path: '/admin',
-    name: 'admin',
+    name: 'Admin',
     component: () => import('../views/Admin'),
     beforeEnter(to, from, next) {
       if (store.getters['auth/isLoggedIn']) {

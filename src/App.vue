@@ -1,13 +1,24 @@
 <template>
   <div id="app">
-    <router-view :key="$route.name" />
+    <component :is="layout">
+      <router-view :key="$route.name" />
+    </component>
   </div>
 </template>
 
 <script>
+import BaseLayout from '@/layouts/BaseLayout';
+
 export default {
   name: 'App',
-  components: {},
+  components: {
+    BaseLayout,
+  },
+  computed: {
+    layout() {
+      return this.$route.meta.layout || 'BaseLayout';
+    },
+  },
 };
 </script>
 
@@ -17,6 +28,8 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  background-color: $body-bg;
+  color: $body-color;
 }
 
 #app {

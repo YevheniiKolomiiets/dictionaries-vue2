@@ -4,7 +4,7 @@ import router from '@/router/router';
 
 const state = {
   accessToken: null,
-  user: { name: 'name' },
+  user: {},
   isLoading: false,
   error: null,
 };

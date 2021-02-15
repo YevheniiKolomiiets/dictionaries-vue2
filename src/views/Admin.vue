@@ -1,19 +1,9 @@
 <template>
-  <main><button @click="handleLogout">logout</button></main>
+  <main>admin</main>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
-  name: 'admin',
-  methods: {
-    ...mapActions({
-      logout: 'auth/logout',
-    }),
-    handleLogout() {
-      this.logout();
-    },
-  },
+  name: 'Admin',
 };
 </script>
