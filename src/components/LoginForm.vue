@@ -7,12 +7,15 @@
       <b-form-input id="password" v-model="password" type="password" placeholder="password" required></b-form-input>
     </b-form-group>
 
-    <b-button type="submit" variant="outline-primary" class="ml-sm-2">Login</b-button>
+    <b-button type="submit" variant="outline-primary" class="ml-sm-2" :disabled="loading">
+      <b-icon v-if="loading" icon="circle-fill" animation="throb" font-scale="1" />
+      Login
+    </b-button>
   </b-form>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'LoginForm',
@@ -20,6 +23,11 @@ export default {
     username: '',
     password: '',
   }),
+  computed: {
+    ...mapGetters({
+      loading: 'auth/loading',
+    }),
+  },
   methods: {
     ...mapActions({
       login: 'auth/login',
