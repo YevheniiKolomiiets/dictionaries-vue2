@@ -1,31 +1,14 @@
 <template>
-  <main>homepage</main>
+  <main class="p-4">
+    <DictionariesTable />
+  </main>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import DictionariesTable from '@/components/DictionariesTable';
 
 export default {
   name: 'Homepage',
-  data: () => ({
-    username: '',
-    password: '',
-  }),
-  computed: {
-    ...mapGetters({
-      user: 'auth/user',
-    }),
-  },
-  methods: {
-    ...mapActions({
-      login: 'auth/login',
-    }),
-    handleLogin() {
-      this.login({
-        login: this.username,
-        password: this.password,
-      });
-    },
-  },
+  components: { DictionariesTable },
 };
 </script>
