@@ -1,11 +1,11 @@
-import AuthApi from '@/services/api/auth.api';
 import axios from 'axios';
+import AuthApi from '@/services/api/auth.api';
 import router from '@/router/router';
 
 const state = {
   accessToken: null,
   user: {},
-  isLoading: false,
+  loading: false,
   error: null,
 };
 
@@ -13,55 +13,46 @@ const getters = {
   accessToken: (state) => state.accessToken,
   isLoggedIn: (state) => !!state.accessToken,
   user: (state) => state.user,
-  isLoading: (state) => state.isLoading,
+  loading: (state) => state.loading,
   error: (state) => state.error,
 };
 
 const mutations = {
-  loginRequest(state) {
-    state.accessToken = null;
-    state.user = {};
-    state.isLoading = true;
-    state.error = null;
+  setAccessToken(state, payload) {
+    state.accessToken = payload;
   },
-  loginSuccess(state, { authToken, ...user }) {
-    state.accessToken = authToken;
-    state.user = user;
-    state.isLoading = false;
+  setUser(state, payload) {
+    state.user = payload;
   },
-  authRequest(state) {
-    state.isLoading = true;
-    state.error = null;
+  setLoading(state, payload) {
+    state.loading = payload;
   },
-  authRequestError(state, errResponse) {
-    state.isLoading = false;
-    state.error = errResponse;
-  },
-  setPasswordSuccess(state) {
-    state.isLoading = false;
-  },
-  changePasswordSuccess(state) {
-    state.isLoading = false;
-  },
-  logout(state) {
-    state.accessToken = null;
-    state.user = {};
+  setError(state, payload) {
+    state.error = payload;
   },
 };
 
 const actions = {
   async login({ commit }, payload) {
     try {
-      commit('loginRequest');
+      commit('setAccessToken', null);
+      commit('setUser', {});
+      commit('setLoading', true);
+      commit('setError', null);
+
       const response = await AuthApi.login(payload);
-      commit('loginSuccess', response.data);
+
+      commit('setAccessToken', response.data.authToken);
+      commit('setUser', response.data);
+      commit('setLoading', false);
 
       axios.defaults.headers.common.Authorization = `Bearer ${response.data.accessToken}`;
       await router.push('/admin');
 
       return response.data;
     } catch (error) {
-      commit('authRequestError', error);
+      commit('setLoading', false);
+      commit('setError', error);
 
       console.error(error);
 
@@ -70,7 +61,9 @@ const actions = {
   },
 
   async logout({ commit }) {
-    commit('logout');
+    commit('setAccessToken', null);
+    commit('setUser', {});
+
     await router.push('/');
 
     localStorage.removeItem('vuex');
