@@ -28,6 +28,9 @@ const mutations = {
   addDictionary(state, payload) {
     state.dictionaries = [...state.dictionaries, payload];
   },
+  removeDictionary(state, payload) {
+    state.dictionaries = state.dictionaries.filter(({ id }) => id !== payload.id);
+  },
 };
 
 const actions = {
@@ -80,6 +83,26 @@ const actions = {
       const response = await DictionariesApi.addDictionary(payload);
 
       commit('addDictionary', response.data);
+      commit('setLoading', false);
+
+      return response.data;
+    } catch (error) {
+      commit('setLoading', false);
+      commit('setError', error);
+
+      console.error(error);
+
+      throw error;
+    }
+  },
+  async removeDictionary({ commit }, payload) {
+    try {
+      commit('setLoading', true);
+      commit('setError', null);
+
+      const response = await DictionariesApi.removeDictionary(payload);
+
+      commit('removeDictionary', response.data);
       commit('setLoading', false);
 
       return response.data;

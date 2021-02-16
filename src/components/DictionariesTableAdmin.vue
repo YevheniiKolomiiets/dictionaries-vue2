@@ -13,24 +13,27 @@
       </template>
 
       <template #cell(actions)="data">
-        <b-button size="sm" variant="info" class="mr-1" @click="handleEditButtonClick(data.item)"> Edit</b-button>
-        <b-button size="sm" variant="danger"> Remove</b-button>
+        <b-button size="sm" variant="info" class="mr-1" @click="handleEditButtonClick(data.item)">Edit</b-button>
+        <b-button size="sm" variant="danger" @click="handleRemoveButtonClick(data.item.id)">Remove</b-button>
       </template>
     </b-table>
 
     <EditRecordModal :editable-data="editableData" />
+    <DeleteRecordModal :id="pendingRemovalId" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import EditRecordModal from '@/components/Modals/EditRecordModal';
+import DeleteRecordModal from '@/components/Modals/DeleteRecordModal';
 
 export default {
   name: 'DictionariesTableAdmin',
-  components: { EditRecordModal },
+  components: { DeleteRecordModal, EditRecordModal },
   data: () => ({
     editableData: {},
+    pendingRemovalId: '',
     fields: ['index', 'id', 'phone', 'city', 'tariff', 'booked', 'actions'],
   }),
   computed: {
@@ -46,6 +49,10 @@ export default {
     handleEditButtonClick(item) {
       this.editableData = { ...item };
       this.$bvModal.show('editRecordModal');
+    },
+    handleRemoveButtonClick(id) {
+      this.pendingRemovalId = id;
+      this.$bvModal.show('deleteRecordModal');
     },
   },
   mounted() {
