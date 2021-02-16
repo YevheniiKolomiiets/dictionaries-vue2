@@ -25,6 +25,9 @@ const mutations = {
   updateDictionaries(state, payload) {
     state.dictionaries = state.dictionaries.map((dict) => (dict.id === payload.id ? payload : dict));
   },
+  addDictionary(state, payload) {
+    state.dictionaries = [...state.dictionaries, payload];
+  },
 };
 
 const actions = {
@@ -57,6 +60,26 @@ const actions = {
       const response = await DictionariesApi.editDictionary({ id, payload });
 
       commit('updateDictionaries', response.data);
+      commit('setLoading', false);
+
+      return response.data;
+    } catch (error) {
+      commit('setLoading', false);
+      commit('setError', error);
+
+      console.error(error);
+
+      throw error;
+    }
+  },
+  async addDictionary({ commit }, payload) {
+    try {
+      commit('setLoading', true);
+      commit('setError', null);
+
+      const response = await DictionariesApi.addDictionary(payload);
+
+      commit('addDictionary', response.data);
       commit('setLoading', false);
 
       return response.data;

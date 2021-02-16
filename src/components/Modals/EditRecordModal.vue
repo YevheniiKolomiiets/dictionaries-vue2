@@ -20,13 +20,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { mask } from 'vue-the-mask';
 import DictionaryRecordForm from '@/components/DictionaryRecordForm';
 
 export default {
-  name: 'EditModal',
+  name: 'EditRecordModal',
   components: { DictionaryRecordForm },
-  directives: { mask },
   props: {
     editableData: {
       required: true,
@@ -34,7 +32,7 @@ export default {
   },
   data: () => ({
     editModal: {
-      id: 'editModal',
+      id: 'editRecordModal',
       title: 'Edit record',
       error: '',
     },

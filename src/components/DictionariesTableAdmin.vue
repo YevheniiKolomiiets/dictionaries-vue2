@@ -18,17 +18,17 @@
       </template>
     </b-table>
 
-    <EditModal :editable-data="editableData" />
+    <EditRecordModal :editable-data="editableData" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import EditModal from '@/components/Modals/EditModal';
+import EditRecordModal from '@/components/Modals/EditRecordModal';
 
 export default {
   name: 'DictionariesTableAdmin',
-  components: { EditModal },
+  components: { EditRecordModal },
   data: () => ({
     editableData: {},
     fields: ['index', 'id', 'phone', 'city', 'tariff', 'booked', 'actions'],
@@ -45,7 +45,7 @@ export default {
     }),
     handleEditButtonClick(item) {
       this.editableData = { ...item };
-      this.$bvModal.show('editModal');
+      this.$bvModal.show('editRecordModal');
     },
   },
   mounted() {
