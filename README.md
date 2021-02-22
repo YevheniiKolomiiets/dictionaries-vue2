@@ -1,4 +1,4 @@
-# dictionaries-vue3
+# dictionaries-vue2
 
 ## Project setup
 ```
