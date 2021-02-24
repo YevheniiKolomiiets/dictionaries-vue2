@@ -4,12 +4,14 @@ const state = {
   dictionaries: [],
   loading: false,
   error: null,
+  isFormValid: null,
 };
 
 const getters = {
   dictionaries: (state) => state.dictionaries,
   loading: (state) => state.loading,
   error: (state) => state.error,
+  isFormValid: (state) => state.isFormValid,
 };
 
 const mutations = {
@@ -30,6 +32,9 @@ const mutations = {
   },
   removeDictionary(state, payload) {
     state.dictionaries = state.dictionaries.filter(({ id }) => id !== payload.id);
+  },
+  setFormValidation(state, payload) {
+    state.isFormValid = payload;
   },
 };
 

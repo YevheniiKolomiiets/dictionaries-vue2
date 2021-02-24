@@ -9,7 +9,13 @@
     <template #modal-footer>
       <div class="d-flex justify-content-end">
         <b-button variant="secondary" size="sm" class="mr-2" @click="hideEditModal"> Cancel </b-button>
-        <b-button variant="primary" size="sm" class="" @click="handleEditConfirmation" :disabled="loading">
+        <b-button
+          variant="primary"
+          size="sm"
+          class=""
+          @click="handleEditConfirmation"
+          :disabled="loading || !isFormValid"
+        >
           <b-icon v-if="loading" icon="circle-fill" animation="throb" font-scale="1" />
           Save
         </b-button>
@@ -40,6 +46,7 @@ export default {
   computed: {
     ...mapGetters({
       loading: 'dictionaries/loading',
+      isFormValid: 'dictionaries/isFormValid',
     }),
   },
   methods: {
