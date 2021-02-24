@@ -46,7 +46,7 @@ const actions = {
       commit('setUser', response.data);
       commit('setLoading', false);
 
-      axios.defaults.headers.common.Authorization = `Bearer ${response.data.accessToken}`;
+      axios.defaults.headers.common.Authorization = `Bearer ${response.data.authToken}`;
       await router.push('/admin');
 
       return response.data;
