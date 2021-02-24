@@ -1,24 +1,10 @@
 # dictionaries-vue2
 
-## Project setup
-```
-yarn install
-```
+Simple application with authentication.
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+Credentials:
+`admin - admin`
 
-### Compiles and minifies for production
-```
-yarn build
-```
+The following technologies were used: vue, vuex, vue-router, vue-bootstrap, axios.
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+https://vue-dictionary.herokuapp.com/
